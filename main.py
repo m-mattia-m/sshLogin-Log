@@ -1,5 +1,7 @@
 import paramiko
 import json
+from datetime import datetime
+import os
 
 
 class Login():
@@ -82,6 +84,8 @@ class Commands():
 
         # Form output
         output = ""
+        output += datetime.today().strftime('%d-%m-%Y');
+        output += "\n";
         output += "--------------------\n"
         output += "Anzahl Files: " + str(countFiles).replace("  ", "") + "\n"
         output += "Anzahl Folders: " + str(countFolders).replace("  ", "") + "\n"
@@ -93,7 +97,11 @@ class Commands():
         pass
 
     def writeInFile(self, text):
-        outputFile = open("output.txt", "w")
+        path = "output/"
+        name = "output-" + datetime.today().strftime('%d-%m-%Y') + ".txt";
+        completeName = os.path.join(path, name)
+        outputFile = open(completeName, "w")
+        # outputFile = open("output.txt", "w")
         text = text.replace(r"\n', '", "\n")
         text = text.replace("['", "")
         text = text.replace(r"\n']", "\n")
